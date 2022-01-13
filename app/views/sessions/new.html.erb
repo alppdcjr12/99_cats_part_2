@@ -1,0 +1,21 @@
+<h1>Login</h1>
+
+<%= render 'shared/errors' %>
+
+<form action="<%= session_url %>" method="POST">
+
+  <label for="username">Username</label>
+  <input
+    type="text"
+    name="user[username]"
+    id="username">
+
+  <label for="user_password">Password</label>
+  <input
+    type="password"
+    name="user[password]"
+    id="user_password">
+  <br>
+
+  <input type="submit" value="Log in">
+</form>
