@@ -9,6 +9,23 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <form method="get" action="<%= new_session_url %>">
+          <button type="submit">Log in</button>
+      </form>
+    <% else %>
+      <form method="POST" action="<%= session_url %>">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit">Log out</button>
+      </form>
+    <% end %>
+
+    <% if current_user %>
+    <h2>
+      <%= current_user.username %>
+    </h2>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

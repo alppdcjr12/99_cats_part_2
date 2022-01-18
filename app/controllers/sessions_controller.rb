@@ -1,19 +1,18 @@
 class SessionsController < ApplicationController
+  before_action :block_login_if_signed_in
+  
   def new
     render :new
   end
 
   def create
-    @user = User.find_by_credentials(user_params[:username], user_params[:password])
+    username, password = user_params[:username], user_params[:password]
+    login_user!(username, password)
+  end
 
-    if @user
-      session[:session_token] = @user.reset_session_token!
-      redirect_to cats_url
-    else
-      flash.now[:errors] = ["Username or password is incorrect."]
-      render :new
-    end
-
+  def destroy
+    current_user.reset_session_token! if current_user
+    session.delete(:session_token)
   end
 
   private
